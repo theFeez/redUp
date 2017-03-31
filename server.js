@@ -21,11 +21,34 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
         reddit.hot(options,function(error,res1){
             console.log(res1);
             for(var i in res1.children){
-                //console.log(res1.children[i].data);
-                
-                    //console.log(res1.children[i].data.url);
+                pic = res1.children[i].data;
+                console.log(pic.url);
+                if(pic.url.includes("gfycat")){
+                    console.log('gfycat');
+                    if(pic.url.includes('https')){
+                       var newUrl = 
+                    pic.url.slice(0,8)+'giant.'+pic.url.slice(8,pic.url.length)+'.gif';
+                       }
+                       else{
+                           var newUrl = pic.url.slice(0,7)+'giant.'+pic.url.slice(7,pic.url.length)+'.gif';
+                       }
+                    
+                    console.log(newUrl);
+                }
+                else{
+                    newUrl=pic.url;
+                }
+                if(pic.url.includes('imgur')&&!pic.url.includes('i.imgur')){
+                    if(pic.url.includes('https')){
+                        var newUrl = pic.url.slice(0,8)+'i.'+pic.url.slice(8,pic.url.length)+'.jpg';
+                    }
+                    else{
+                        pic.url.slice(0,7)+'i.'+pic.url.slice(7,pic.url.length)+'.jpg';
+                        
+                    }
+                }
                 var imgOptions = {
-                    url:res1.children[i].data.url,
+                    url:newUrl,
                     dest:__dirname+'/pics/'+res1.children[i].data.subreddit,
                     done:function(err,filename,image){
                         if(err){
