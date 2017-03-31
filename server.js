@@ -41,7 +41,7 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
                 }
                 if(pic.url.includes('imgur')&&!pic.url.includes('i.imgur')){
                     if(pic.url.includes('https')){
-                        var newUrl = pic.url.splice(0,8)+'i.'+pic.url.slice(8,pic.url.length)+'.jpg';
+                        var newUrl = pic.url.slice(0,8)+'i.'+pic.url.slice(8,pic.url.length)+'.jpg';
                     }
                     else{
                         pic.url.slice(0,7)+'i.'+pic.url.slice(7,pic.url.length)+'.jpg';
