@@ -6,7 +6,7 @@ var fs = require('fs');
 var session = require('express-session');
 var config = require(__dirname+'/credentials.json');
 var image_downloader = require('image-downloader');
-
+fs.mkdir(__dirname+'/pics/'+process.argv[2],function(){
 reddit.setupOAuth2(config.redditApp.redditID,config.redditApp.redditSecret);
 
 reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pass}, function(err, response) {
@@ -18,13 +18,15 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
             r:process.argv[2],
             limit:process.argv[3]
         }
-        reddit.hot(options,function(error,res){
-            
-            for(var i in res.children){
-                console.log(res.children[i].data.url);
+        reddit.hot(options,function(error,res1){
+            console.log(res1);
+            for(var i in res1.children){
+                //console.log(res1.children[i].data);
+                
+                    //console.log(res1.children[i].data.url);
                 var imgOptions = {
-                    url:res.children[i].data.url,
-                    dest:__dirname+'/pics/',
+                    url:res1.children[i].data.url,
+                    dest:__dirname+'/pics/'+res1.children[i].data.subreddit,
                     done:function(err,filename,image){
                         if(err){
                             console.log(err);
@@ -34,10 +36,13 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
                     
                 };
                 image_downloader(imgOptions);
+                
+                
             }
         })
         // The user is now authenticated. If you want the temporary bearer token, it's available as response.access_token
         // and will be valid for response.expires_in seconds.
         // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
     }
+});
 });
