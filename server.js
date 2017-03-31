@@ -6,6 +6,7 @@ var fs = require('fs');
 var session = require('express-session');
 var config = require(__dirname+'/credentials.json');
 var image_downloader = require('image-downloader');
+fs.mkdir(__dirname+'/pics',function(){
 fs.mkdir(__dirname+'/pics/'+process.argv[2],function(){
 reddit.setupOAuth2(config.redditApp.redditID,config.redditApp.redditSecret);
 
@@ -40,7 +41,7 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
                 }
                 if(pic.url.includes('imgur')&&!pic.url.includes('i.imgur')){
                     if(pic.url.includes('https')){
-                        var newUrl = pic.url.slice(0,8)+'i.'+pic.url.slice(8,pic.url.length)+'.jpg';
+                        var newUrl = pic.url.splice(0,8)+'i.'+pic.url.slice(8,pic.url.length)+'.jpg';
                     }
                     else{
                         pic.url.slice(0,7)+'i.'+pic.url.slice(7,pic.url.length)+'.jpg';
@@ -67,5 +68,6 @@ reddit.auth({"username": config.redditApp.user, "password": config.redditApp.pas
         // and will be valid for response.expires_in seconds.
         // raw.js will automatically refresh the bearer token as it expires. Unlike web apps, no refresh tokens are available.
     }
+});
 });
 });
