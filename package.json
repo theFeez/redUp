@@ -1,0 +1,20 @@
+{
+  "name": "redup",
+  "version": "1.0.0",
+  "description": "Its time for redUp, the worst app in the internet",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "express-sessions": "^1.0.6",
+    "image-downloader": "^2.0.3",
+    "raw.js": "^0.6.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Zachary Feezor",
+  "license": "ISC"
+}
